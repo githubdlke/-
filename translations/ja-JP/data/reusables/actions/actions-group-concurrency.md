@@ -19,7 +19,7 @@ concurrency: ci-${{ github.ref }}
 {% raw %}
 ```yaml
 concurrency: 
-  group: ${{ github.ref }}
+  group: ${{ github.head_ref }}
   cancel-in-progress: true
 ```
 {% endraw %}

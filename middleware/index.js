@@ -13,6 +13,7 @@ import cookieParser from './cookie-parser.js'
 import csrf from './csrf.js'
 import handleCsrfErrors from './handle-csrf-errors.js'
 import compression from 'compression'
+import disableCachingOnSafari from './disable-caching-on-safari.js'
 import {
   setDefaultFastlySurrogateKey,
   setManualFastlySurrogateKey,
@@ -63,9 +64,8 @@ import next from './next.js'
 import renderPage from './render-page.js'
 import assetPreprocessing from './asset-preprocessing.js'
 
-const { DEPLOYMENT_ENV, NODE_ENV } = process.env
+const { NODE_ENV } = process.env
 const isDevelopment = NODE_ENV === 'development'
-const isAzureDeployment = DEPLOYMENT_ENV === 'azure'
 const isTest = NODE_ENV === 'test' || process.env.GITHUB_ACTIONS === 'true'
 
 // Catch unhandled promise rejections and passing them to Express's error handler
@@ -79,14 +79,8 @@ export default function (app) {
   if (!isTest) app.use(timeout)
   app.use(abort)
 
-  // *** Request logging ***
-  // Enabled in development and azure deployed environments
-  // Not enabled in Heroku because the Heroku router + papertrail already logs the request information
-  app.use(
-    morgan(isAzureDeployment ? 'combined' : 'dev', {
-      skip: (req, res) => !(isDevelopment || isAzureDeployment),
-    })
-  )
+  // *** Development tools ***
+  app.use(morgan('dev', { skip: (req, res) => !isDevelopment }))
 
   // *** Observability ***
   if (process.env.DD_API_KEY) {
@@ -160,6 +154,7 @@ export default function (app) {
   // *** Headers ***
   app.set('etag', false) // We will manage our own ETags if desired
   app.use(compression())
+  app.use(disableCachingOnSafari)
   app.use(catchBadAcceptLanguage)
 
   // *** Config and context for redirects ***

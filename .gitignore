@@ -10,7 +10,6 @@ coverage/
 /data/early-access
 .next
 .eslintcache
-*.tsbuildinfo
 
 # blc: broken link checker
 blc_output.log

@@ -1,15 +1,24 @@
 ---
-title: Using GitHub-hosted runners
-intro: You can use GitHub's runners to execute your GitHub Actions workflows.
+title: Usar executores hospedados no GitHub
+intro: Você pode usar os executores do GitHub para executar seus fluxos de trabalho do GitHub Actions.
 versions:
   fpt: '*'
-  ghec: '*'
   ghes: '*'
+  ghae: '*'
+  ghec: '*'
 children:
   - /about-github-hosted-runners
   - /customizing-github-hosted-runners
-shortTitle: Use GitHub-hosted runners
+  - /about-ae-hosted-runners
+  - /adding-ae-hosted-runners
+  - /using-ae-hosted-runners-in-a-workflow
+  - /using-labels-with-ae-hosted-runners
+  - /using-groups-to-manage-access-to-ae-hosted-runners
+  - /creating-custom-images
+shortTitle: Usar executores hospedados no GitHub
 ---
 
+{% data reusables.actions.ae-hosted-runners-beta %}
 {% data reusables.actions.enterprise-beta %}
 {% data reusables.actions.enterprise-github-hosted-runners %}
+{% data reusables.actions.ae-beta %}

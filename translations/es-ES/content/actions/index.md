@@ -36,6 +36,7 @@ redirect_from:
   - /actions/automating-your-workflow-with-github-actions/
   - /categories/automating-your-workflow-with-github-actions
   - /marketplace/actions
+  - /actions/guides
   - /actions/reference
 layout: product-landing
 versions:

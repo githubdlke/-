@@ -1,6 +1,6 @@
 ---
-title: GitHub CLI reference
-intro: 'You can view all of the {% data variables.product.prodname_cli %} commands in your terminal or in the {% data variables.product.prodname_cli %} manual.'
+title: Referência da CLI do GitHub
+intro: 'Você pode visualizar todos os comandos de {% data variables.product.prodname_cli %} no seu terminal ou no manual de {% data variables.product.prodname_cli %}.'
 versions:
   fpt: '*'
   ghes: '*'
@@ -23,13 +23,13 @@ To list all commands under a specific group, use the top-level command without a
 gh repo
 ```
 
-To view the environment variables that can be used with {% data variables.product.prodname_cli %}, see the [{% data variables.product.prodname_cli %} manual](https://cli.github.com/manual/gh_help_environment) or use the `environment` command.
+Para ver as variáveis de ambiente que podem ser usadas com {% data variables.product.prodname_cli %}, consulte o [manual de {% data variables.product.prodname_cli %}](https://cli.github.com/manual/gh_help_environment) ou use o comando `ambiente`.
 
 ```shell
 gh environment
 ```
 
-To view the configuration settings that can be used with {% data variables.product.prodname_cli %}, see the [{% data variables.product.prodname_cli %} manual](https://cli.github.com/manual/gh_config) or use the `config` command.
+Para ver as configurações que podem ser usadas com {% data variables.product.prodname_cli %}, consulte o [manual de {% data variables.product.prodname_cli %}](https://cli.github.com/manual/gh_config) ou use o comando `config`.
 
 ```shell
 gh config

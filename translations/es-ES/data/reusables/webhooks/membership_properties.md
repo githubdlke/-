@@ -1,4 +1,4 @@
-| Clave     | Tipo        | Descripción                                                     |
+| Clave     | Type        | Descripción                                                     |
 | --------- | ----------- | --------------------------------------------------------------- |
 | `Acción`  | `secuencia` | La acción que se realizó. Puede ser `added` o `removed`.        |
 | `alcance` | `secuencia` | El alcance de la membrecía. Acutalmente, solo puede ser `team`. |

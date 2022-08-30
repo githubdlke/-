@@ -5,8 +5,6 @@ import { GHAEReleaseNotePatch } from './GHAEReleaseNotePatch'
 import { GHAEReleaseNotesContextT } from './types'
 import { MarkdownContent } from 'components/ui/MarkdownContent'
 
-import styles from './PatchNotes.module.scss'
-
 type GitHubAEProps = {
   context: GHAEReleaseNotesContextT
 }
@@ -37,10 +35,8 @@ export function GHAEReleaseNotes({ context }: GitHubAEProps) {
       </article>
 
       <aside
-        className={cx(
-          'position-sticky d-none d-md-block border-left no-print color-bg-default flex-shrink-0',
-          styles.aside
-        )}
+        className="position-sticky top-0 d-none d-md-block border-left no-print color-bg-default flex-shrink-0"
+        style={{ width: 260, height: '100vh' }}
       >
         <nav className="height-full overflow-auto">
           <MarkdownContent data-search="article-content">
@@ -89,7 +85,7 @@ const CollapsibleReleaseSection = ({
           {release.version}
           <div className="d-flex">
             <span className="color-fg-muted text-small text-normal mr-1">
-              {release.patches.length} {release.patches.length === 1 ? 'release' : 'releases'}
+              {release.patches.length} releases
             </span>
             <ChevronDownIcon className={isOpen ? 'rotate-180' : ''} />
           </div>

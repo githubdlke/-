@@ -32,8 +32,7 @@ async function main() {
     throw new Error(`Language ${options.language} not found`)
   }
 
-  const files = [languageFiles(language, 'content'), languageFiles(language, 'data')].flat()
-
+  const files = languageFiles(language, 'content')
   const brokenFiles = []
 
   files.forEach((file) => {

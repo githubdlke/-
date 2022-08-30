@@ -17,6 +17,7 @@ shortTitle: Quickstart
 
 {% data reusables.actions.enterprise-beta %}
 {% data reusables.actions.enterprise-github-hosted-runners %}
+{% data reusables.actions.ae-beta %}
 
 ## Introduction
 
@@ -76,7 +77,7 @@ Committing the workflow file to a branch in your repository triggers the `push` 
    For example, you can see the list of files in your repository:
    ![Example action detail](/assets/images/help/repository/actions-quickstart-log-detail.png)
    
-## More starter workflows
+## More workflow templates
 
 {% data reusables.actions.workflow-template-overview %}
 

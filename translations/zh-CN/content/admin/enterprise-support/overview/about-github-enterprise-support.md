@@ -1,6 +1,6 @@
 ---
-title: About GitHub Enterprise Support
-intro: '{% data variables.contact.github_support %} can help you troubleshoot issues that arise on {% data variables.product.product_name %}.'
+title: 关于 GitHub Enterprise Support
+intro: '{% data variables.contact.github_support %} 可帮助您排除 {% data variables.product.product_name %} 上出现的问题。'
 redirect_from:
   - /enterprise/admin/enterprise-support/about-github-enterprise-support
   - /admin/enterprise-support/about-github-enterprise-support
@@ -11,83 +11,84 @@ type: overview
 topics:
   - Enterprise
   - Support
-shortTitle: GitHub Enterprise Support
+shortTitle: GitHub Enterprise 支持
 ---
+
 {% note %}
 
-**Note**: {% data reusables.support.data-protection-and-privacy %}
+**注意**：{% data reusables.support.data-protection-and-privacy %}
 
 {% endnote %}
 
-## About {% data variables.contact.enterprise_support %}
+## 关于 {% data variables.contact.enterprise_support %}
 
-{% data variables.product.product_name %} includes {% data variables.contact.enterprise_support %} in English{% ifversion ghes %} and Japanese{% endif %}.
+{% data variables.product.product_name %} 包括 {% data variables.contact.enterprise_support %} 英语版{% ifversion ghes %}和日语版{% endif %}。
 
 {% ifversion ghes %}
-You can contact {% data variables.contact.enterprise_support %} through {% data variables.contact.contact_enterprise_portal %} for help with:
- - Installing and using {% data variables.product.product_name %}
- - Identifying and verifying the causes of suspected errors
+您可以通过 {% data variables.contact.enterprise_support %} 联系 {% data variables.contact.contact_enterprise_portal %} 来寻求以下帮助：
+ - 安装和使用 {% data variables.product.product_name %}
+ - 识别并验证可疑错误的原因
 
-In addition to all of the benefits of {% data variables.contact.enterprise_support %}, {% data variables.contact.premium_support %} support for {% data variables.product.product_name %} offers:
-  - Written support through our support portal 24 hours per day, 7 days per week
-  - Phone support 24 hours per day, 7 days per week
-  - A Service Level Agreement (SLA) with guaranteed initial response times
-  - Customer Reliability Engineers 
-  - Access to premium content
-  - Scheduled health checks
-  - Managed Admin hours
+除了 {% data variables.contact.enterprise_support %} 的所有优点之外，{% data variables.product.product_name %} 的 {% data variables.contact.premium_support %} 支持还提供：
+  - 通过我们的支持门户网站全天候提供书面支持
+  - 全天候电话支持
+  - 保证初始响应时间的服务等级协议 (SLA)
+  - 客户可靠性工程师
+  - 高级内容访问权限
+  - 按时健康状态检查
+  - 管理的管理员小时数
 {% endif %}
 
 {% ifversion ghes %}
-For more information, see "[About {% data variables.contact.premium_support %} for {% data variables.product.prodname_ghe_server %}](/enterprise/admin/guides/enterprise-support/about-github-premium-support-for-github-enterprise-server)."
+更多信息请参阅“[关于 {% data variables.product.prodname_ghe_server %} 的 {% data variables.contact.premium_support %}](/enterprise/admin/guides/enterprise-support/about-github-premium-support-for-github-enterprise-server)”。
 {% endif %}
 
 {% data reusables.support.scope-of-support %}
 
-## Contacting {% data variables.contact.enterprise_support %}
+## 联系 {% data variables.contact.enterprise_support %}
 
 {% ifversion ghes %}
 {% data reusables.support.zendesk-old-tickets %}
 {% endif %}
 
 
-You can contact {% data variables.contact.enterprise_support %} through {% ifversion ghes %}{% data variables.contact.contact_enterprise_portal %}{% elsif ghae %} the {% data variables.contact.ae_azure_portal %}{% endif %} to report issues in writing. For more information, see "[Receiving help from {% data variables.contact.github_support %}](/admin/enterprise-support/receiving-help-from-github-support)."
+您可以通过 {% ifversion ghes %}{% data variables.contact.contact_enterprise_portal %}{% elsif ghae %} {% data variables.contact.ae_azure_portal %}{% endif %} 联系 {% data variables.contact.enterprise_support %}，以书面报告问题。 更多信息请参阅“[从 {% data variables.contact.github_support %} 获取帮助](/admin/enterprise-support/receiving-help-from-github-support)”。
 
 {% ifversion ghes %}
-## Hours of operation
+## 运行时间
 
-### Support in English
+### 英语支持
 
-For standard non-urgent issues, we offer support in English 24 hours per day, 5 days per week, excluding weekends and national U.S. holidays. The standard response time is 24 hours.
+对于标准的非紧急问题，我们提供每天 24 小时、每周 5 天的英语支持，不包括周末和美国国家法定节假日。 </em>GitHub 每天二十四 (24) 小时、每周五 (5) 天（不包括周末和美国全国性假日）对软件提供标准技术支持，不收取额外费用。 标准响应时间为 24 小时。
 
-For urgent issues, we are available 24 hours per day, 7 days per week, even during national U.S. holidays.
+对于紧急问题，我们每周 7 天、每天 24 小时提供服务，即使在美国法定节假日也不例外。 </em>GitHub 每天二十四 (24) 小时、每周五 (5) 天（不包括周末和美国全国性假日）对软件提供标准技术支持，不收取额外费用。
 
-### Support in Japanese
+### 日语支持
 
-For non-urgent issues, support in Japanese is available Monday through Friday from 9:00 AM to 5:00 PM JST, excluding national holidays in Japan. For urgent issues, we offer support in English 24 hours per day, 7 days per week, even during national U.S. holidays.
+对于非紧急问题，日语支持的服务时间为周一至周五上午 9:00 至下午 5:00（日本标准时间），不包括日本的法定节假日。 对于紧急问题，我们每周 7 天、每天 24 小时提供英语支持，即使在美国法定节假日也不例外。 </em>GitHub 每天二十四 (24) 小时、每周五 (5) 天（不包括周末和美国全国性假日）对软件提供标准技术支持，不收取额外费用。
 
-For a complete list of U.S. and Japanese national holidays observed by {% data variables.contact.enterprise_support %}, see "[Holiday schedules](#holiday-schedules)."
+有关 有关 {% data variables.contact.enterprise_support %} 遵守的美国和日本法定节假日的完整列表，请参阅“[节假日安排](#holiday-schedules)”。
 
-## Holiday schedules
+## 节假日安排
 
-For urgent issues, we can help you in English 24 hours per day, 7 days per week, including on U.S. and Japanese holidays.
+对于紧急问题，我们全天候为您提供英语帮助，包括美国 和日本的节假日。
 
-### Holidays in the United States
+### 美国的节假日
 
-{% data variables.contact.enterprise_support %} observes these U.S. holidays, although our global support team is available to answer urgent tickets.
+{% data variables.contact.enterprise_support %} observes these U.S. holidays. {{ site.data.variables.contact.enterprise_support }} 会庆祝这些美国节假日，但我们的全球支持团队可以回答紧急事件单。
 
 {% data reusables.enterprise_enterprise_support.support-holiday-availability %}
 
-### Holidays in Japan
+### 日本节假日
 
-{% data variables.contact.enterprise_support %} does not provide Japanese-language support on December 28th through January 3rd as well as on the holidays listed in [国民の祝日について - 内閣府](https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html).
+{% data variables.contact.enterprise_support %} 在 12 月 28 日至 1 月 3 日以及 [国民の祝日について - 内閣府](https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html)中所列的节假日不提供日语支持。
 
 {% data reusables.enterprise_enterprise_support.installing-releases %}
 {% endif %}
 
-## Assigning a priority to a support ticket
+## 为支持事件单分配优先级
 
-When you contact {% data variables.contact.enterprise_support %}, you can choose one of four priorities for the ticket: {% data variables.product.support_ticket_priority_urgent %}, {% data variables.product.support_ticket_priority_high %}, {% data variables.product.support_ticket_priority_normal %}, or {% data variables.product.support_ticket_priority_low %}.
+联系 {% data variables.contact.enterprise_support %} 时，可为事件单选择以下四种优先级之一：{% data variables.product.support_ticket_priority_urgent %}、{% data variables.product.support_ticket_priority_high %}、{% data variables.product.support_ticket_priority_normal %} 或 {% data variables.product.support_ticket_priority_low %}。
 
 {% data reusables.support.github-can-modify-ticket-priority %}
 
@@ -97,14 +98,14 @@ When you contact {% data variables.contact.enterprise_support %}, you can choose
 {% data reusables.support.ghae-priorities %}
 {% endif %}
 
-## Resolving and closing support tickets
+## 解决和关闭支持事件单
 
 {% data reusables.support.enterprise-resolving-and-closing-tickets %}
 
-## Further reading
+## 延伸阅读
 
 {% ifversion ghes %}
-- Section 10 on Support in the "[{% data variables.product.prodname_ghe_server %} License Agreement](https://enterprise.github.com/license)"{% endif %}
-- "[Receiving help from {% data variables.contact.github_support %}](/admin/enterprise-support/receiving-help-from-github-support)"{% ifversion ghes %}
-- "[Preparing to submit a ticket](/enterprise/admin/guides/enterprise-support/preparing-to-submit-a-ticket)"{% endif %}
-- "[Submitting a ticket](/enterprise/admin/guides/enterprise-support/submitting-a-ticket)"
+- 关于“[{% data variables.product.prodname_ghe_server %} 许可协议](https://enterprise.github.com/license)”中支持的第 10 节{% endif %}
+- "[从 {% data variables.contact.github_support %} 获取帮助](/admin/enterprise-support/receiving-help-from-github-support)"{% ifversion ghes %}
+- “[准备提交事件单](/enterprise/admin/guides/enterprise-support/preparing-to-submit-a-ticket)”{% endif %}
+- “[提交事件单](/enterprise/admin/guides/enterprise-support/submitting-a-ticket)”

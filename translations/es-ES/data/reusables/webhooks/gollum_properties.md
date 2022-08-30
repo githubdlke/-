@@ -1,4 +1,4 @@
-| Clave                | Tipo        | Descripción                                                            |
+| Clave                | Type        | Descripción                                                            |
 | -------------------- | ----------- | ---------------------------------------------------------------------- |
 | `páginas`            | `arreglo`   | Las páginas que se actualizaron.                                       |
 | `pages[][page_name]` | `secuencia` | El nombre de la página.                                                |

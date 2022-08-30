@@ -14,12 +14,6 @@ export const LanguagePicker = ({ variant }: Props) => {
   const langs = Object.values(languages)
   const selectedLang = languages[locale]
 
-  // The `router.asPath` will always be without a hash in SSR
-  // So to avoid a hydraration failure on the client, we have to
-  // normalize it to be without the hash. That way the path is treated
-  // in a "denormalized" way.
-  const routerPath = router.asPath.split('#')[0]
-
   return (
     <Picker
       variant={variant}
@@ -31,14 +25,13 @@ export const LanguagePicker = ({ variant }: Props) => {
           text: lang.nativeName || lang.name,
           selected: lang === selectedLang,
           item: (
-            <Link href={routerPath} locale={lang.code}>
+            <Link href={router.asPath} locale={lang.code}>
               {lang.nativeName ? (
                 <>
-                  <span lang={lang.code}>{lang.nativeName}</span> (
-                  <span lang="en">{lang.name}</span>)
+                  {lang.nativeName} ({lang.name})
                 </>
               ) : (
-                <span lang={lang.code}>{lang.name}</span>
+                lang.name
               )}
             </Link>
           ),

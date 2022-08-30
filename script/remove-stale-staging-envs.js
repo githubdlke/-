@@ -20,20 +20,8 @@ if (!process.env.GITHUB_TOKEN) {
   process.exit(1)
 }
 
-if (!process.env.ELEVATED_TOKEN) {
-  console.error(
-    'Error! You must have a ELEVATED_TOKEN environment variable for removing deployment environments.'
-  )
-  process.exit(1)
-}
-
 if (!process.env.REPO) {
   console.error('Error! You must have a REPO environment variable.')
-  process.exit(1)
-}
-
-if (!process.env.RUN_ID) {
-  console.error('Error! You must have a RUN_ID environment variable.')
   process.exit(1)
 }
 
@@ -57,8 +45,6 @@ async function main() {
     console.error(`Error! The repository owner must be "${owner}" but was "${repoOwner}".`)
     process.exit(1)
   }
-
-  const logUrl = `https://github.com/${owner}/${repo}/actions/runs/${process.env.RUN_ID}`
 
   const prInfoMatch = /^(?:gha-|ghd-)?(?<repo>docs(?:-internal)?)-(?<pullNumber>\d+)--.*$/
 
@@ -211,7 +197,6 @@ async function main() {
             deployment_id: deployment.id,
             state: 'inactive',
             description: 'The app was undeployed',
-            log_url: logUrl,
             // The 'ant-man' preview is required for `state` values of 'inactive', as well as
             // the use of the `log_url`, `environment_url`, and `auto_inactive` parameters.
             // The 'flash' preview is required for `state` values of 'in_progress' and 'queued'.
@@ -234,10 +219,6 @@ async function main() {
       // Delete this Environment
       try {
         await octokit.repos.deleteAnEnvironment({
-          // Must use a PAT with more elevated permissions than GITHUB_TOKEN can achieve!
-          headers: {
-            authorization: `token ${process.env.ELEVATED_TOKEN}`,
-          },
           owner,
           repo,
           environment_name: envName,

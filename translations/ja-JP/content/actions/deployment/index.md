@@ -1,6 +1,6 @@
 ---
-title: Deployment
-shortTitle: Deployment
+title: デプロイメント
+shortTitle: デプロイメント
 intro: 'Automatically deploy projects with {% data variables.product.prodname_actions %}.'
 versions:
   fpt: '*'
@@ -16,3 +16,4 @@ children:
   - /deploying-xcode-applications
 ---
 
+{% data reusables.actions.ae-beta %}

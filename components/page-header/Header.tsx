@@ -33,16 +33,6 @@ export const Header = () => {
     }
   }, [])
 
-  useEffect(() => {
-    const close = (e: { key: string }) => {
-      if (e.key === 'Escape') {
-        setIsMenuOpen(false)
-      }
-    }
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
-  }, [])
-
   return (
     <div
       className={cx(
@@ -99,17 +89,16 @@ export const Header = () => {
               </Link>
             </div>
 
-            <nav>
+            <div>
               <button
                 className="btn"
                 data-testid="mobile-menu-button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Navigation Menu"
-                aria-expanded={isMenuOpen ? 'true' : 'false'}
               >
                 {isMenuOpen ? <XIcon size="small" /> : <ThreeBarsIcon size="small" />}
               </button>
-            </nav>
+            </div>
           </div>
 
           {/* mobile menu contents */}
@@ -139,8 +128,6 @@ export const Header = () => {
           </div>
         </div>
       </header>
-      {/* Adding Portal Root here for DropdownMenu and ActionList Search Results */}
-      <div id="__primerPortalRoot__" className={cx(styles.portalRoot)} />
     </div>
   )
 }

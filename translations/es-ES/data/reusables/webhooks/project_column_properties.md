@@ -1,4 +1,4 @@
-| Clave                 | Tipo        | Descripción                                                                                                                         |
+| Clave                 | Type        | Descripción                                                                                                                         |
 | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `Acción`              | `secuencia` | La acción que se realizó en la columna de proyecto. Puede ser una de entre `created`, `edited`, `moved` o `deleted`.                |
 | `changes`             | `objeto`    | Los cambios a la columna del proyecto si la acción se puso como `edited`.                                                           |

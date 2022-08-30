@@ -16,17 +16,11 @@ export default async function featuredLinks(req, res, next) {
 
   req.context.featuredLinks = {}
   for (const key in req.context.page.featuredLinks) {
-    if (key === 'videos') {
-      // Videos are external URLs so don't run through getLinkData, they're
-      // objects with title and href properties.
-      req.context.featuredLinks[key] = req.context.page.featuredLinks[key]
-    } else {
-      req.context.featuredLinks[key] = await getLinkData(
-        req.context.page.featuredLinks[key],
-        req.context,
-        { title: true, intro: true, fullTitle: true }
-      )
-    }
+    req.context.featuredLinks[key] = await getLinkData(
+      req.context.page.featuredLinks[key],
+      req.context,
+      { title: true, intro: true, fullTitle: true }
+    )
   }
 
   return next()

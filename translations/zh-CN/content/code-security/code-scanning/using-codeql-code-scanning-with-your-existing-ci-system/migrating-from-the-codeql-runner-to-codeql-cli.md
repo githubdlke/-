@@ -6,7 +6,7 @@ product: '{% data reusables.gated-features.code-scanning %}'
 versions:
   fpt: '*'
   ghes: '>=3.1'
-  ghae: '*'
+  ghae: next
   ghec: '*'
 topics:
   - Advanced Security
@@ -16,10 +16,9 @@ topics:
 
 # Migrating from the {% data variables.product.prodname_codeql_runner %} to the {% data variables.product.prodname_codeql_cli %}
 
-The {% data variables.product.prodname_codeql_runner %} is being deprecated. You can use the {% data variables.product.prodname_codeql_cli %} version 2.6.2 and greater instead.
-This document describes how to migrate common workflows from the {% data variables.product.prodname_codeql_runner %} to the {% data variables.product.prodname_codeql_cli %}.
+The {% data variables.product.prodname_codeql_runner %} is being deprecated. You can use the {% data variables.product.prodname_codeql_cli %} version 2.6.2 and greater instead. This document describes how to migrate common workflows from the {% data variables.product.prodname_codeql_runner %} to the {% data variables.product.prodname_codeql_cli %}.
 
-## Installation
+## 安装
 
 Download the **{% data variables.product.prodname_codeql %} bundle** from the [`github/codeql-action` repository](https://github.com/github/codeql-action/releases). This bundle contains the {% data variables.product.prodname_codeql_cli %} and the standard {% data variables.product.prodname_codeql %} queries and libraries.
 
@@ -39,9 +38,7 @@ A typical workflow that uses the {% data variables.product.prodname_codeql_cli %
 - `codeql database analyze` to run queries to analyze each {% data variables.product.prodname_codeql %} database and summarize the results in a SARIF file. This command must be run once for each language or database.
 - `codeql github upload-results` to upload the resulting SARIF files to {% data variables.product.prodname_dotcom %}, to be displayed as code scanning alerts. This command must be run once for each language or SARIF file.
 
-The {% data variables.product.prodname_codeql_runner %} is multithreaded by default. The {% data variables.product.prodname_codeql_cli %} only uses a single thread by default, but allows you to specify the amount of threads you want it to use. If you want to replicate the behavior of the {% data variables.product.prodname_codeql_runner %} to use all threads available on the machine when using the {% data variables.product.prodname_codeql_cli %}, you can pass `--threads 0` to `codeql database analyze`.
-
-For more information, see "[Configuring {% data variables.product.prodname_codeql_cli %} in your CI system](/code-security/code-scanning/using-codeql-code-scanning-with-your-existing-ci-system/configuring-codeql-cli-in-your-ci-system)."
+更多信息请参阅“[在 CI 系统中配置 {% data variables.product.prodname_codeql_cli %}](/code-security/code-scanning/using-codeql-code-scanning-with-your-existing-ci-system/configuring-codeql-cli-in-your-ci-system)”。
 
 ## Examples of common uses for the {% data variables.product.prodname_codeql_cli %}
 
@@ -57,7 +54,7 @@ The ref name and commit SHA being checked out and analyzed in these examples are
 
 ### Single non-compiled language (JavaScript)
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages javascript \
@@ -86,7 +83,7 @@ echo "$TOKEN" | codeql github upload-results --repository=my-org/example-repo \
 
 A similar approach can be taken for compiled languages, or multiple languages.
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages javascript \
@@ -116,7 +113,7 @@ echo "$TOKEN" | codeql github upload-results --repository=my-org/example-repo \
 
 A similar approach can be taken for compiled languages, or multiple languages.
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages javascript \
@@ -145,7 +142,7 @@ echo "$TOKEN" | codeql github upload-results --repository=my-org/example-repo \
 
 ### Single compiled language using autobuild (Java)
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages java \
@@ -179,7 +176,7 @@ echo "$TOKEN" | codeql github upload-results --repository=my-org/example-repo \
 
 ### Single compiled language using a custom build command (Java)
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages java \
@@ -214,7 +211,7 @@ echo "$TOKEN" | codeql github upload-results --repository=my-org/example-repo \
 
 Indirect build tracing for a compiled language enables {% data variables.product.prodname_codeql %} to detect all build steps between the `init` and `analyze` steps, when the code cannot be built using the autobuilder or an explicit build command line. This is useful when using preconfigured build steps from your CI system, such as the `VSBuild` and `MSBuild` tasks in Azure DevOps.
 
-Runner:
+运行器:
 ```yaml
 - task: CmdLine@1
   displayName: CodeQL Initialization
@@ -334,10 +331,9 @@ CLI:
 
 ### Multiple languages using autobuild (C++, Python)
 
-This example is not strictly possible with the {% data variables.product.prodname_codeql_runner %}.
-Only one language (the compiled language with the most files) will be analyzed.
+This example is not strictly possible with the {% data variables.product.prodname_codeql_runner %}. Only one language (the compiled language with the most files) will be analyzed.
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages cpp,python \
@@ -377,7 +373,7 @@ done
 
 ### Multiple languages using a custom build command (C++, Python)
 
-Runner:
+运行器:
 ```bash
 echo "$TOKEN" | codeql-runner-linux init --repository my-org/example-repo \
     --languages cpp,python \

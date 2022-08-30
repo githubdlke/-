@@ -1,4 +1,4 @@
-| Nombre                   | Tipo        | Descripción                                                                                                                   |
+| Nombre                   | Type        | Descripción                                                                                                                   |
 | ------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `id`                     | `número`    | El identificador único del evento.                                                                                            |
 | `node_id`                | `secuencia` | La [ID de Nodo Global]({% ifversion ghec %}/free-pro-team@latest{% endif %}/graphql/guides/using-global-node-ids) del evento. |

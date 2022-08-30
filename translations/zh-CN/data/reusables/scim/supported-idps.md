@@ -2,5 +2,4 @@
 
 {% ifversion ghae %}
 - Azure AD
-- Okta (currently in beta)
 {% endif %}

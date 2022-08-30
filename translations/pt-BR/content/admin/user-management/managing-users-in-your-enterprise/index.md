@@ -1,9 +1,9 @@
 ---
-title: Managing users in your enterprise
-intro: You can audit user activity and manage user settings.
+title: Gerenciar usuários na sua empresa
+intro: Você pode controlar atividades do usuário e gerenciar configurações de usuário.
 redirect_from:
   - /github/setting-up-and-managing-your-enterprise/managing-users-in-your-enterprise
-  - /enterprise/admin/guides/user-management/enabling-avatars-and-identicons
+  - /enterprise/admin/guides/user-management/enabling-avatars-and-identicons/
   - /enterprise/admin/user-management/basic-account-settings
   - /enterprise/admin/user-management/user-security
   - /enterprise/admin/user-management/managing-users-in-your-enterprise
@@ -33,5 +33,6 @@ children:
   - /auditing-ssh-keys
   - /customizing-user-messages-for-your-enterprise
   - /rebuilding-contributions-data
-shortTitle: Manage users
+shortTitle: Gerenciar usuários
 ---
+

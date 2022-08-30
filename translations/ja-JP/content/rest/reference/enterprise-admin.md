@@ -1,6 +1,6 @@
 ---
-title: GitHub Enterprise administration
-intro: You can use these endpoints to administer your enterprise. Among the tasks you can perform with this API are many relating to GitHub Actions.
+title: GitHub Enterprise の管理
+intro: 'You can use these {% data variables.product.prodname_ghe_cloud %} endpoints to administer your enterprise account. Among the tasks you can perform with this API are many relating to GitHub Actions.'
 allowTitleToDifferFromFilename: true
 redirect_from:
   - /v3/enterprise-admin
@@ -13,54 +13,47 @@ versions:
 topics:
   - API
 miniTocMaxHeadingLevel: 3
-shortTitle: Enterprise administration
+shortTitle: Enterprise管理
 ---
 
 {% ifversion fpt or ghec %}
 
 {% note %}
 
-**Note:** This article applies to {% data variables.product.prodname_ghe_cloud %}. To see the {% data variables.product.prodname_ghe_managed %} or {% data variables.product.prodname_ghe_server %} version, use the **{% data ui.pages.article_version %}** drop-down menu.
+**注釈:** この記事は {% data variables.product.prodname_ghe_cloud %} に適用されます。 {% data variables.product.prodname_ghe_managed %}あるいは{% data variables.product.prodname_ghe_server %}のバージョンを見るには、**{% data ui.pages.article_version %}**ドロップダウンメニューを使ってください。
 
 {% endnote %}
 
 {% endif %}
 
-### Endpoint URLs
+### エンドポイント URL
 
-REST API endpoints{% ifversion ghes %}—except [Management Console](#management-console) API endpoints—{% endif %} are prefixed with the following URL:
+REST API エンドポイント{% ifversion ghes %}（[管理コンソール](#management-console) API エンドポイントを除く）{% endif %}の前には、次の URL が付けられます。
 
 ```shell
 {% data variables.product.api_url_pre %}
 ```
 
-{% ifversion fpt or ghec %}
-When endpoints include `{enterprise}`, replace `{enterprise}` with the handle for your enterprise account, which is included in the URL for your enterprise settings. For example, if your enterprise account is located at `https://github.com/enterprises/octo-enterprise`, replace `{enterprise}` with `octo-enterprise`.
-{% endif %}
-
 {% ifversion ghes %}
-[Management Console](#management-console) API endpoints are only prefixed with a hostname:
+[管理コンソール](#management-console) API エンドポイントには、ホスト名のみがプレフィックスとして付加されます。
 
 ```shell
 http(s)://<em>hostname</em>/
 ```
 {% endif %}
 {% ifversion ghae or ghes %}
-### Authentication
+### 認証
 
-Your {% data variables.product.product_name %} installation's API endpoints accept [the same authentication methods](/rest/overview/resources-in-the-rest-api#authentication) as the GitHub.com API. You can authenticate yourself with **[OAuth tokens](/apps/building-integrations/setting-up-and-registering-oauth-apps/)** {% ifversion ghes %}(which can be created using the [Authorizations API](/rest/reference/oauth-authorizations#create-a-new-authorization)) {% endif %}or **[basic authentication](/rest/overview/resources-in-the-rest-api#basic-authentication)**. {% ifversion ghes %}
-OAuth tokens must have the `site_admin` [OAuth scope](/developers/apps/scopes-for-oauth-apps#available-scopes) when used with Enterprise-specific endpoints.{% endif %}
+{% data variables.product.product_name %} のインストールの API エンドポイントは、GitHub.com APIと[同じ認証方法](/rest/overview/resources-in-the-rest-api#authentication)を受け入れます。 **[OAuth トークン](/apps/building-integrations/setting-up-and-registering-oauth-apps/)**{% ifversion ghes %}（[認証 API](/rest/reference/oauth-authorizations#create-a-new-authorization) を使用して作成可能）{% endif %}または **[Basic 認証](/rest/overview/resources-in-the-rest-api#basic-authentication)**で自分自身を認証できます。 {% ifversion ghes %} Enterprise 固有のエンドポイントで使用する場合、OAuthトークンには `site_admin` [OAuth スコープ](/developers/apps/scopes-for-oauth-apps#available-scopes)が必要です。{% endif %}
 
-Enterprise administration API endpoints are only accessible to authenticated {% data variables.product.product_name %} site administrators{% ifversion ghes %}, except for the [Management Console](#management-console) API, which requires the [Management Console password](/enterprise/admin/articles/accessing-the-management-console/){% endif %}.
+Enterprise 管理 API エンドポイントには、認証された {% data variables.product.product_name %} サイト管理者のみがアクセスできます。{% ifversion ghes %}ただし、[Management Console のパスワード](/enterprise/admin/articles/accessing-the-management-console/)が必要な [Management Console](#management-console) API は除きます。{% endif %}
 
 {% endif %}
 
 {% ifversion ghae or ghes %}
-### Version information
+### バージョン情報
 
-The current version of your enterprise is returned in the response header of every API:
-`X-GitHub-Enterprise-Version: {{currentVersion}}.0`
-You can also read the current version by calling the [meta endpoint](/rest/reference/meta/).
+Enterprise の現在のバージョンは、すべての API のレスポンスヘッダで返されます: `X-GitHub-Enterprise-Version: {{currentVersion}}.0` [メタエンドポイント](/rest/reference/meta/)を呼び出して、現在のバージョンを読み取ることもできます。
 
 {% for operation in currentRestOperations %}
   {% unless operation.subcategory %}{% include rest_operation %}{% endunless %}
@@ -79,7 +72,7 @@ You can also read the current version by calling the [meta endpoint](/rest/refer
 {% endif %}
 
 {% ifversion fpt or ghec %}
-## Billing
+## 支払い
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'billing' %}{% include rest_operation %}{% endif %}
@@ -89,6 +82,7 @@ You can also read the current version by calling the [meta endpoint](/rest/refer
 
 ## GitHub Actions
 
+{% data reusables.actions.ae-beta %}
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'actions' %}{% include rest_operation %}{% endif %}
@@ -96,9 +90,9 @@ You can also read the current version by calling the [meta endpoint](/rest/refer
 
 
 {% ifversion ghae or ghes %}
-## Admin stats
+## 管理統計
 
-The Admin Stats API provides a variety of metrics about your installation. *It is only available to [authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `404` response if they try to access it.
+管理統計 API は、インストールに関するさまざまなメトリクスを提供します。 *[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`404` レスポンスを受け取ります。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'admin-stats' %}{% include rest_operation %}{% endif %}
@@ -108,9 +102,9 @@ The Admin Stats API provides a variety of metrics about your installation. *It i
 
 {% ifversion ghae or ghes > 2.22 %}
 
-## Announcements
+## アナウンス
 
-The Announcements API allows you to manage the global announcement banner in your enterprise. For more information, see "[Customizing user messages for your enterprise](/admin/user-management/customizing-user-messages-for-your-enterprise#creating-a-global-announcement-banner)."
+アナウンス API を使用すると、Enterprise でグローバルなアナウンスバナーを管理できます。 詳しい情報については「[Enterprise のユーザメッセージをカスタマイズする](/admin/user-management/customizing-user-messages-for-your-enterprise#creating-a-global-announcement-banner)」を参照してください。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'announcement' %}{% include rest_operation %}{% endif %}
@@ -120,11 +114,11 @@ The Announcements API allows you to manage the global announcement banner in you
 
 {% ifversion ghae or ghes %}
 
-## Global webhooks
+## グローバル webhook
 
-Global webhooks are installed on your enterprise. You can use global webhooks to automatically monitor, respond to, or enforce rules for users, organizations, teams, and repositories on your enterprise. Global webhooks can subscribe to the [organization](/developers/webhooks-and-events/webhook-events-and-payloads#organization), [user](/developers/webhooks-and-events/webhook-events-and-payloads#user), [repository](/developers/webhooks-and-events/webhook-events-and-payloads#repository), [team](/developers/webhooks-and-events/webhook-events-and-payloads#team), [member](/developers/webhooks-and-events/webhook-events-and-payloads#member), [membership](/developers/webhooks-and-events/webhook-events-and-payloads#membership), [fork](/developers/webhooks-and-events/webhook-events-and-payloads#fork), and [ping](/developers/webhooks-and-events/about-webhooks#ping-event) event types.
+グローバル webhook は Enterprise にインストールされています。 グローバル webhook を使用して、Engerprise のユーザ、Organization、Team、およびリポジトリのルールを自動的に監視、対応、強制することができます。 グローバル webhook は、[Organization](/developers/webhooks-and-events/webhook-events-and-payloads#organization)、[ユーザ](/developers/webhooks-and-events/webhook-events-and-payloads#user)、[リポジトリ](/developers/webhooks-and-events/webhook-events-and-payloads#repository)、[Team](/developers/webhooks-and-events/webhook-events-and-payloads#team)、[メンバー](/developers/webhooks-and-events/webhook-events-and-payloads#member)、[メンバーシップ](/developers/webhooks-and-events/webhook-events-and-payloads#membership)、[フォーク](/developers/webhooks-and-events/webhook-events-and-payloads#fork)、[ping](/developers/webhooks-and-events/about-webhooks#ping-event) イベントタイプをサブスクライブできます。
 
-*This API is only available to [authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `404` response if they try to access it. To learn how to configure global webhooks, see [About global webhooks](/enterprise/admin/user-management/about-global-webhooks).
+*この API は、[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`404` レスポンスを受け取ります。 グローバル webhook の設定方法については、[グローバル webhookについて](/enterprise/admin/user-management/about-global-webhooks)を参照してください。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'global-webhooks' %}{% include rest_operation %}{% endif %}
@@ -136,9 +130,9 @@ Global webhooks are installed on your enterprise. You can use global webhooks to
 
 ## LDAP
 
-You can use the LDAP API to update account relationships between a {% data variables.product.product_name %} user or team and its linked LDAP entry or queue a new synchronization.
+LDAP API を使用して、{% data variables.product.product_name %} ユーザまたは Team とそのリンクされた LDAP エントリ間のアカウント関係を更新するか、新しい同期をキューに入れることができます。
 
-With the LDAP mapping endpoints, you're able to update the Distinguished Name (DN) that a user or team maps to. Note that the LDAP endpoints are generally only effective if your {% data variables.product.product_name %} appliance has [LDAP Sync enabled](/enterprise/admin/authentication/using-ldap). The [Update LDAP mapping for a user](#update-ldap-mapping-for-a-user) endpoint can be used when LDAP is enabled, even if LDAP Sync is disabled.
+LDAP マッピングエンドポイントを使用すると、ユーザまたは Team がマッピングする識別名（DN）を更新できます。 LDAP エンドポイントは通常、{% data variables.product.product_name %} アプライアンスで [LDAP 同期が有効](/enterprise/admin/authentication/using-ldap)になっている場合にのみ有効です。 [ユーザの LDAP マッピングの更新](#update-ldap-mapping-for-a-user)エンドポイントは、LDAP 同期が無効になっている場合でも、LDAP が有効になっていれば使用できます。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'ldap' %}{% include rest_operation %}{% endif %}
@@ -147,9 +141,9 @@ With the LDAP mapping endpoints, you're able to update the Distinguished Name (D
 {% endif %}
 
 {% ifversion ghae or ghes %}
-## License
+## ライセンス
 
-The License API provides information on your Enterprise license. *It is only available to [authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `404` response if they try to access it.
+ライセンス API は、Enterprise ライセンスに関する情報を提供します。 *[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`404` レスポンスを受け取ります。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'license' %}{% include rest_operation %}{% endif %}
@@ -159,34 +153,34 @@ The License API provides information on your Enterprise license. *It is only ava
 
 {% ifversion ghes %}
 
-## Management console
+## Management Console
 
-The Management Console API helps you manage your {% data variables.product.product_name %} installation.
+管理コンソール API は、{% data variables.product.product_name %} インストールの管理に役立ちます。
 
 {% tip %}
 
-You must explicitly set the port number when making API calls to the Management Console. If TLS is enabled on your enterprise, the port number is `8443`; otherwise, the port number is `8080`.
+Management Console への API 呼び出しを行うときは、ポート番号を明示的に設定する必要があります。 Enterprise で TLS が有効になっている場合、ポート番号は `8443` です。それ以外の場合、ポート番号は `8080` です。
 
-If you don't want to provide a port number, you'll need to configure your tool to automatically follow redirects.
+ポート番号を提供しない場合は、自動的にリダイレクトに従うようにツールを設定する必要があります。
 
-You may also need to add the [`-k` flag](http://curl.haxx.se/docs/manpage.html#-k) when using `curl`, since {% data variables.product.product_name %} uses a self-signed certificate before you [add your own TLS certificate](/enterprise/admin/guides/installation/configuring-tls/).
+{% data variables.product.product_name %} は、[独自の TLS 証明書](/enterprise/admin/guides/installation/configuring-tls/)を追加する前は自己署名証明書を使用するため、`cURL` を使用するときに [`-k` フラグ](http://curl.haxx.se/docs/manpage.html#-k)を追加する必要もあるかもしれません。
 
 {% endtip %}
 
-### Authentication
+### 認証
 
-You need to pass your [Management Console password](/enterprise/admin/articles/accessing-the-management-console/) as an authentication token to every Management Console API endpoint except [`/setup/api/start`](#create-a-github-enterprise-server-license).
+[Management Console のパスワード](/enterprise/admin/articles/accessing-the-management-console/)を認証トークンとして [`/setup/api/start`](#create-a-github-enterprise-server-license) を除くすべての Management Console API エンドポイントに渡す必要があります。
 
-Use the `api_key` parameter to send this token with each request. For example:
+`api_key` パラメータを使用して、リクエストごとにこのトークンを送信します。 例:
 
 ```shell
 $ curl -L 'https://<em>hostname</em>:<em>admin_port</em>/setup/api?api_key=<em>your-amazing-password</em>'
 ```
 
-You can also use standard HTTP authentication to send this token. For example:
+標準の HTTP 認証を使用してこのトークンを送信することもできます。 例:
 
 ```shell
-$ curl -L -u "api_key:<em>your-amazing-password</em>" 'https://<em>hostname</em>:<em>admin_port</em>/setup/api'
+$ curl -L 'https://api_key:<em>your-amazing-password</em>@<em>hostname</em>:<em>admin_port</em>/setup/api'
 ```
 
 {% for operation in currentRestOperations %}
@@ -196,9 +190,9 @@ $ curl -L -u "api_key:<em>your-amazing-password</em>" 'https://<em>hostname</em>
 {% endif %}
 
 {% ifversion ghae or ghes %}
-## Organizations
+## Organization
 
-The Organization Administration API allows you to create organizations on your enterprise. *It is only available to [authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `404` response if they try to access it.
+Organization 管理 API を使用すると、Enterprise に Organization を作成できます。 *[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`404` レスポンスを受け取ります。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'orgs' %}{% include rest_operation %}{% endif %}
@@ -207,25 +201,22 @@ The Organization Administration API allows you to create organizations on your e
 {% endif %}
 
 {% ifversion ghes %}
-## Organization pre-receive hooks
+## Organization pre-receive フック
 
-The Organization Pre-receive Hooks API allows you to view and modify
-enforcement of the pre-receive hooks that are available to an organization.
+Organization pre-receive フック API を使用すると、Organization で使用可能な pre-receive フックの適用を表示および変更できます。
 
-### Object attributes
+### オブジェクトの属性
 
-| Name                             | Type      | Description                                               |
-|----------------------------------|-----------|-----------------------------------------------------------|
-| `name`                           | `string`  | The name of the hook.                                     |
-| `enforcement`                    | `string`  | The state of enforcement for the hook on this repository. |
-| `allow_downstream_configuration` | `boolean` | Whether repositories can override enforcement.            |
-| `configuration_url`              | `string`  | URL for the endpoint where enforcement is set.            |
+| 名前                               | 種類        | 説明                       |
+| -------------------------------- | --------- | ------------------------ |
+| `name`                           | `string`  | フックの名前。                  |
+| `enforcement`                    | `string`  | このリポジトリでのフックの適用状態。       |
+| `allow_downstream_configuration` | `boolean` | リポジトリが適用をオーバーライドできるかどうか。 |
+| `configuration_url`              | `string`  | 適用設定されているエンドポイントの URL。   |
 
-Possible values for *enforcement* are `enabled`, `disabled` and`testing`. `disabled` indicates the pre-receive hook will not run. `enabled` indicates it will run and reject
-any pushes that result in a non-zero status. `testing` means the script will run but will not cause any pushes to be rejected.
+*適用*可能な値は、`enabled`、`disabled`、`testing` です。 `disabled` は、pre-receive フックが実行されないことを示します。 `enabled` は、それが実行され、ゼロ以外の状態になるプッシュを拒否することを示します。 `testing` は、スクリプトは実行されるが、プッシュが拒否されないことを示します。
 
-`configuration_url` may be a link to this endpoint or this hook's global
-configuration. Only site admins are able to access the global configuration.
+`configuration_url` は、このエンドポイントまたはこのフックのグローバル設定へのリンクです。 サイトアドミンのみがグローバル設定にアクセスできます。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'org-pre-receive-hooks' %}{% include rest_operation %}{% endif %}
@@ -235,31 +226,31 @@ configuration. Only site admins are able to access the global configuration.
 
 {% ifversion ghes %}
 
-## Pre-receive environments
+## pre-receive 環境
 
-The Pre-receive Environments API allows you to create, list, update and delete environments for pre-receive hooks. *It is only available to [authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `404` response if they try to access it.
+pre-receive 環境 API を使用すると、pre-receive フックの環境を作成、一覧表示、更新、および削除できます。 *[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`404` レスポンスを受け取ります。
 
-### Object attributes
+### オブジェクトの属性
 
-#### Pre-receive Environment
+#### pre-receive 環境
 
-| Name                  | Type      | Description                                                                |
-|-----------------------|-----------|----------------------------------------------------------------------------|
-| `name`                | `string`  | The name of the environment as displayed in the UI.                        |
-| `image_url`           | `string`  | URL to the tarball that will be downloaded and extracted.                  |
-| `default_environment` | `boolean` | Whether this is the default environment that ships with {% data variables.product.product_name %}. |
-| `download`            | `object`  | This environment's download status.                                        |
-| `hooks_count`         | `integer` | The number of pre-receive hooks that use this environment.                 |
+| 名前                    | 種類        | 説明                                                               |
+| --------------------- | --------- | ---------------------------------------------------------------- |
+| `name`                | `string`  | UI に表示される環境の名前。                                                  |
+| `image_url`           | `string`  | ダウンロードおよび抽出される tarball への URL。                                   |
+| `default_environment` | `boolean` | これが {% data variables.product.product_name %} に同梱されるデフォルト環境かどうか。 |
+| `download`            | `オブジェクト`  | この環境のダウンロードステータス。                                                |
+| `hooks_count`         | `integer` | この環境を使用する pre-receive フックの数。                                     |
 
-#### Pre-receive Environment Download
+#### pre-receive 環境のダウンロード
 
-| Name            | Type     | Description                                             |
-|-----------------|----------|---------------------------------------------------------|
-| `state`         | `string` | The state of the most recent download.                  |
-| `downloaded_at` | `string` | The time when the most recent download started.         |
-| `message`       | `string` | On failure, this will have any error messages produced. |
+| 名前              | 種類       | 説明                    |
+| --------------- | -------- | --------------------- |
+| `state`         | `string` | 最新のダウンロードの状態。         |
+| `downloaded_at` | `string` | 最新のダウンロードの開始時刻。       |
+| `message`       | `string` | 失敗時に、エラーメッセージが生成されます。 |
 
-Possible values for `state` are `not_started`, `in_progress`, `success`, `failed`.
+`state`が取り得る値は、`not_started`、`in_progress`、`success`、`failed`です。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'pre-receive-environments' %}{% include rest_operation %}{% endif %}
@@ -268,26 +259,24 @@ Possible values for `state` are `not_started`, `in_progress`, `success`, `failed
 {% endif %}
 
 {% ifversion ghes %}
-## Pre-receive hooks
+## pre-receive フック
 
-The Pre-receive Hooks API allows you to create, list, update and delete pre-receive hooks. *It is only available to
-[authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `404` response if they try to access it.
+pre-receive フック API を使用すると、pre-receive フックを作成、一覧表示、更新、および削除できます。 *これは[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`404` レスポンスを受け取ります。
 
-### Object attributes
+### オブジェクトの属性
 
-#### Pre-receive Hook
+#### pre-receive フック
 
-| Name                             | Type      | Description                                                     |
-|----------------------------------|-----------|-----------------------------------------------------------------|
-| `name`                           | `string`  | The name of the hook.                                           |
-| `script`                         | `string`  | The script that the hook runs.                                  |
-| `script_repository`              | `object`  | The GitHub repository where the script is kept.                 |
-| `environment`                    | `object`  | The pre-receive environment where the script is executed.       |
-| `enforcement`                    | `string`  | The state of enforcement for this hook.                         |
-| `allow_downstream_configuration` | `boolean` | Whether enforcement can be overridden at the org or repo level. |
+| 名前                               | 種類        | 説明                                   |
+| -------------------------------- | --------- | ------------------------------------ |
+| `name`                           | `string`  | フックの名前。                              |
+| `script`                         | `string`  | フックが実行するスクリプト。                       |
+| `script_repository`              | `オブジェクト`  | スクリプトが保存されているGitHubリポジトリ。            |
+| `environment`                    | `オブジェクト`  | スクリプトが実行される pre-receive 環境。          |
+| `enforcement`                    | `string`  | このフックの適用状態。                          |
+| `allow_downstream_configuration` | `boolean` | 適用の Org レベルまたは repo レベルでのオーバーライドの可否。 |
 
-Possible values for *enforcement* are `enabled`, `disabled` and`testing`. `disabled` indicates the pre-receive hook will not run. `enabled` indicates it will run and reject
-any pushes that result in a non-zero status. `testing` means the script will run but will not cause any pushes to be rejected.
+*適用*可能な値は、`enabled`、`disabled`、`testing` です。 `disabled` は、pre-receive フックが実行されないことを示します。 `enabled` は、それが実行され、ゼロ以外の状態になるプッシュを拒否することを示します。 `testing` は、スクリプトは実行されるが、プッシュが拒否されないことを示します。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'pre-receive-hooks' %}{% include rest_operation %}{% endif %}
@@ -297,22 +286,21 @@ any pushes that result in a non-zero status. `testing` means the script will run
 
 {% ifversion ghes %}
 
-## Repository pre-receive hooks
+## リポジトリ pre-receive フック
 
-The Repository Pre-receive Hooks API allows you to view and modify
-enforcement of the pre-receive hooks that are available to a repository.
+リポジトリ pre-receive フック API を使用すると、リポジトリで使用可能な pre-receive フックの適用を表示および変更できます。
 
-### Object attributes
+### オブジェクトの属性
 
-| Name                | Type     | Description                                               |
-|---------------------|----------|-----------------------------------------------------------|
-| `name`              | `string` | The name of the hook.                                     |
-| `enforcement`       | `string` | The state of enforcement for the hook on this repository. |
-| `configuration_url` | `string` | URL for the endpoint where enforcement is set.            |
+| 名前                  | 種類       | 説明                     |
+| ------------------- | -------- | ---------------------- |
+| `name`              | `string` | フックの名前。                |
+| `enforcement`       | `string` | このリポジトリでのフックの適用状態。     |
+| `configuration_url` | `string` | 適用設定されているエンドポイントの URL。 |
 
-Possible values for *enforcement* are `enabled`, `disabled` and`testing`. `disabled` indicates the pre-receive hook will not run. `enabled` indicates it will run and reject any pushes that result in a non-zero status. `testing` means the script will run but will not cause any pushes to be rejected.
+*適用*可能な値は、`enabled`、`disabled`、`testing` です。 `disabled` は、pre-receive フックが実行されないことを示します。 `enabled` は、それが実行され、ゼロ以外の状態になるプッシュを拒否することを示します。 `testing` は、スクリプトは実行されるが、プッシュが拒否されないことを示します。
 
-`configuration_url` may be a link to this repository, it's organization owner or global configuration. Authorization to access the endpoint at `configuration_url` is determined at the owner or site admin level.
+`configuration_url` は、このリポジトリ、その Organization のオーナー、またはグローバル設定へのリンクである場合があります。 `configuration_url` でエンドポイントにアクセスする権限は、所有者またはサイトアドミンレベルで決定されます。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'repo-pre-receive-hooks' %}{% include rest_operation %}{% endif %}
@@ -321,9 +309,9 @@ Possible values for *enforcement* are `enabled`, `disabled` and`testing`. `disab
 {% endif %}
 
 {% ifversion ghae or ghes %}
-## Users
+## ユーザ
 
-The User Administration API allows you to suspend{% ifversion ghes %}, unsuspend, promote, and demote{% endif %}{% ifversion ghae %} and unsuspend{% endif %} users on your enterprise. *It is only available to [authenticated](/rest/overview/resources-in-the-rest-api#authentication) site administrators.* Normal users will receive a `403` response if they try to access it.
+ユーザ管理 API では、Enterprise でユーザをサスペンド{% ifversion ghes %}、サスペンド解除、昇格、降格、{% endif %}{% ifversion ghae %}およびサスペンド解除{% endif %}できます。 *これは[認証された](/rest/overview/resources-in-the-rest-api#authentication)サイト管理者のみが使用できます。*通常のユーザがアクセスしようとすると、`403` レスポンスを受け取ります。
 
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'users' %}{% include rest_operation %}{% endif %}

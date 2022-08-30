@@ -3,7 +3,7 @@ title: GitHub Enterprise guides
 shortTitle: Guides
 intro: 'Learn how to increase developer productivity and code quality with {% data variables.product.product_name %}.'
 allowTitleToDifferFromFilename: true
-layout: product-guides
+layout: product-sublanding
 versions:
   ghec: '*'
   ghes: '*'
@@ -50,7 +50,6 @@ includeGuides:
   - /admin/configuration/configuring-secret-scanning-for-your-appliance
   - /admin/configuration/configuring-tls
   - /admin/configuration/configuring-your-enterprise/verifying-or-approving-a-domain-for-your-enterprise
-  - /admin/configuration/configuring-your-enterprise/managing-github-mobile-for-your-enterprise
   - /admin/configuration/connecting-your-enterprise-account-to-github-enterprise-cloud
   - /admin/configuration/enabling-and-scheduling-maintenance-mode
   - /admin/configuration/enabling-automatic-user-license-sync-between-github-enterprise-server-and-github-enterprise-cloud
@@ -59,6 +58,7 @@ includeGuides:
   - /admin/configuration/enabling-unified-contributions-between-your-enterprise-account-and-githubcom
   - /admin/configuration/enabling-unified-search-between-your-enterprise-account-and-githubcom
   - /admin/configuration/initializing-github-ae
+  - /admin/configuration/managing-github-for-mobile-for-your-enterprise
   - /admin/configuration/network-ports
   - /admin/configuration/restricting-network-traffic-to-your-enterprise
   - /admin/configuration/site-admin-dashboard

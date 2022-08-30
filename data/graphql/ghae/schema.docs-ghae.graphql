@@ -1493,11 +1493,6 @@ type Bot implements Actor & Node & UniformResourceLocatable {
 }
 
 """
-Types which can be actors for `BranchActorAllowance` objects.
-"""
-union BranchActorAllowanceActor = Team | User
-
-"""
 A branch protection rule.
 """
 type BranchProtectionRule implements Node {
@@ -1535,56 +1530,6 @@ type BranchProtectionRule implements Node {
     """
     last: Int
   ): BranchProtectionRuleConflictConnection!
-
-  """
-  A list of actors able to force push for this branch protection rule.
-  """
-  bypassForcePushAllowances(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): BypassForcePushAllowanceConnection!
-
-  """
-  A list of actors able to bypass PRs for this branch protection rule.
-  """
-  bypassPullRequestAllowances(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): BypassPullRequestAllowanceConnection!
 
   """
   The actor who created this branch protection rule.
@@ -1856,118 +1801,6 @@ type BranchProtectionRuleEdge {
   The item at the end of the edge.
   """
   node: BranchProtectionRule
-}
-
-"""
-A team or user who has the ability to bypass a force push requirement on a protected branch.
-"""
-type BypassForcePushAllowance implements Node {
-  """
-  The actor that can dismiss.
-  """
-  actor: BranchActorAllowanceActor
-
-  """
-  Identifies the branch protection rule associated with the allowed user or team.
-  """
-  branchProtectionRule: BranchProtectionRule
-  id: ID!
-}
-
-"""
-The connection type for BypassForcePushAllowance.
-"""
-type BypassForcePushAllowanceConnection {
-  """
-  A list of edges.
-  """
-  edges: [BypassForcePushAllowanceEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [BypassForcePushAllowance]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-
-  """
-  Identifies the total count of items in the connection.
-  """
-  totalCount: Int!
-}
-
-"""
-An edge in a connection.
-"""
-type BypassForcePushAllowanceEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-
-  """
-  The item at the end of the edge.
-  """
-  node: BypassForcePushAllowance
-}
-
-"""
-A team or user who has the ability to bypass a pull request requirement on a protected branch.
-"""
-type BypassPullRequestAllowance implements Node {
-  """
-  The actor that can dismiss.
-  """
-  actor: BranchActorAllowanceActor
-
-  """
-  Identifies the branch protection rule associated with the allowed user or team.
-  """
-  branchProtectionRule: BranchProtectionRule
-  id: ID!
-}
-
-"""
-The connection type for BypassPullRequestAllowance.
-"""
-type BypassPullRequestAllowanceConnection {
-  """
-  A list of edges.
-  """
-  edges: [BypassPullRequestAllowanceEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [BypassPullRequestAllowance]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-
-  """
-  Identifies the total count of items in the connection.
-  """
-  totalCount: Int!
-}
-
-"""
-An edge in a connection.
-"""
-type BypassPullRequestAllowanceEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-
-  """
-  The item at the end of the edge.
-  """
-  node: BypassPullRequestAllowance
 }
 
 """
@@ -4505,6 +4338,48 @@ type ConnectedEvent implements Node {
 }
 
 """
+A content attachment
+"""
+type ContentAttachment {
+  """
+  The body text of the content attachment. This parameter supports markdown.
+  """
+  body: String!
+
+  """
+  The content reference that the content attachment is attached to.
+  """
+  contentReference: ContentReference!
+
+  """
+  Identifies the primary key from the database.
+  """
+  databaseId: Int!
+  id: ID!
+
+  """
+  The title of the content attachment.
+  """
+  title: String!
+}
+
+"""
+A content reference
+"""
+type ContentReference {
+  """
+  Identifies the primary key from the database.
+  """
+  databaseId: Int!
+  id: ID!
+
+  """
+  The reference of the content reference.
+  """
+  reference: String!
+}
+
+"""
 Represents a contribution a user made on GitHub, such as opening an issue.
 """
 interface Contribution {
@@ -5244,27 +5119,6 @@ type ConvertedNoteToIssueEvent implements Node {
 }
 
 """
-Represents a 'converted_to_discussion' event on a given issue.
-"""
-type ConvertedToDiscussionEvent implements Node {
-  """
-  Identifies the actor who performed the event.
-  """
-  actor: Actor
-
-  """
-  Identifies the date and time when the object was created.
-  """
-  createdAt: DateTime!
-
-  """
-  The discussion that the issue was converted into.
-  """
-  discussion: Discussion
-  id: ID!
-}
-
-"""
 Autogenerated input type of CreateBranchProtectionRule
 """
 input CreateBranchProtectionRuleInput {
@@ -5277,16 +5131,6 @@ input CreateBranchProtectionRuleInput {
   Are force pushes allowed on this branch.
   """
   allowsForcePushes: Boolean
-
-  """
-  A list of User or Team IDs allowed to bypass force push targeting matching branches.
-  """
-  bypassForcePushActorIds: [ID!]
-
-  """
-  A list of User or Team IDs allowed to bypass pull requests targeting matching branches.
-  """
-  bypassPullRequestActorIds: [ID!]
 
   """
   A unique identifier for the client performing the mutation.
@@ -5562,6 +5406,46 @@ type CreateCommitOnBranchPayload {
   The ref which has been updated to point to the new commit.
   """
   ref: Ref
+}
+
+"""
+Autogenerated input type of CreateContentAttachment
+"""
+input CreateContentAttachmentInput {
+  """
+  The body of the content attachment, which may contain markdown.
+  """
+  body: String!
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The node ID of the content_reference.
+  """
+  contentReferenceId: ID! @possibleTypes(concreteTypes: ["ContentReference"])
+
+  """
+  The title of the content attachment.
+  """
+  title: String!
+}
+
+"""
+Autogenerated return type of CreateContentAttachment
+"""
+type CreateContentAttachmentPayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The newly created content attachment.
+  """
+  contentAttachment: ContentAttachment
 }
 
 """
@@ -9321,11 +9205,6 @@ type Enterprise implements Node {
     The search string to look for.
     """
     query: String
-
-    """
-    The viewer's role in an organization.
-    """
-    viewerOrganizationRole: RoleInOrganization
   ): OrganizationConnection!
 
   """
@@ -14358,7 +14237,6 @@ union IssueTimelineItems =
   | CommentDeletedEvent
   | ConnectedEvent
   | ConvertedNoteToIssueEvent
-  | ConvertedToDiscussionEvent
   | CrossReferencedEvent
   | DemilestonedEvent
   | DisconnectedEvent
@@ -14472,11 +14350,6 @@ enum IssueTimelineItemsItemType {
   Represents a 'converted_note_to_issue' event on a given issue or pull request.
   """
   CONVERTED_NOTE_TO_ISSUE_EVENT
-
-  """
-  Represents a 'converted_to_discussion' event on a given issue.
-  """
-  CONVERTED_TO_DISCUSSION_EVENT
 
   """
   Represents a mention made by one issue or pull request to another.
@@ -16797,6 +16670,16 @@ type Mutation {
   ): CreateCommitOnBranchPayload
 
   """
+  Create a content attachment.
+  """
+  createContentAttachment(
+    """
+    Parameters for CreateContentAttachment
+    """
+    input: CreateContentAttachmentInput!
+  ): CreateContentAttachmentPayload @preview(toggledBy: "corsair-preview")
+
+  """
   Creates a new deployment event.
   """
   createDeployment(
@@ -17795,16 +17678,6 @@ type Mutation {
     """
     input: UpdateLabelInput!
   ): UpdateLabelPayload @preview(toggledBy: "bane-preview")
-
-  """
-  Sets whether private repository forks are enabled for an organization.
-  """
-  updateOrganizationAllowPrivateRepositoryForkingSetting(
-    """
-    Parameters for UpdateOrganizationAllowPrivateRepositoryForkingSetting
-    """
-    input: UpdateOrganizationAllowPrivateRepositoryForkingSettingInput!
-  ): UpdateOrganizationAllowPrivateRepositoryForkingSettingPayload
 
   """
   Updates an existing project.
@@ -21340,11 +21213,6 @@ type Organization implements Actor & MemberStatusable & Node & ProfileOwner & Pr
   ): UserStatusConnection!
 
   """
-  Members can fork private repositories in this organization
-  """
-  membersCanForkPrivateRepositories: Boolean!
-
-  """
   A list of users who are members of this organization.
   """
   membersWithRole(
@@ -21965,7 +21833,7 @@ type OrganizationAuditEntryEdge {
 }
 
 """
-A list of organizations managed by an enterprise.
+The connection type for Organization.
 """
 type OrganizationConnection {
   """
@@ -26226,7 +26094,6 @@ union PullRequestTimelineItems =
   | ConnectedEvent
   | ConvertToDraftEvent
   | ConvertedNoteToIssueEvent
-  | ConvertedToDiscussionEvent
   | CrossReferencedEvent
   | DemilestonedEvent
   | DeployedEvent
@@ -26400,11 +26267,6 @@ enum PullRequestTimelineItemsItemType {
   Represents a 'converted_note_to_issue' event on a given issue or pull request.
   """
   CONVERTED_NOTE_TO_ISSUE_EVENT
-
-  """
-  Represents a 'converted_to_discussion' event on a given issue.
-  """
-  CONVERTED_TO_DISCUSSION_EVENT
 
   """
   Represents a 'convert_to_draft' event on a given pull request.
@@ -26644,9 +26506,9 @@ type Push implements Node {
   previousSha: GitObjectID
 
   """
-  The actor who pushed
+  The user who pushed
   """
-  pusher: Actor!
+  pusher: User!
 
   """
   The repository that was pushed to
@@ -31193,11 +31055,6 @@ type Repository implements Node & ProjectOwner & RepositoryInfo & Starrable & Su
     before: String
 
     """
-    Filter by categories that are assignable by the viewer.
-    """
-    filterByAssignable: Boolean = false
-
-    """
     Returns the first _n_ elements from the list.
     """
     first: Int
@@ -33550,8 +33407,6 @@ Specifies the attributes for a new or updated required status check.
 input RequiredStatusCheckInput {
   """
   The ID of the App that must set the status in order for it to be accepted.
-  Omit this value to use whichever app has recently been setting this status, or
-  use "any" to allow any app to set the status.
   """
   appId: ID
 
@@ -33917,26 +33772,6 @@ type ReviewStatusHovercardContext implements HovercardContext {
   The current status of the pull request with respect to code review.
   """
   reviewDecision: PullRequestReviewDecision
-}
-
-"""
-Possible roles a user may have in relation to an organization.
-"""
-enum RoleInOrganization {
-  """
-  A user who is a direct member of the organization.
-  """
-  DIRECT_MEMBER
-
-  """
-  A user with full administrative access to the organization.
-  """
-  OWNER
-
-  """
-  A user who is unaffiliated with the organization.
-  """
-  UNAFFILIATED
 }
 
 """
@@ -38150,16 +37985,6 @@ input UpdateBranchProtectionRuleInput {
   branchProtectionRuleId: ID! @possibleTypes(concreteTypes: ["BranchProtectionRule"])
 
   """
-  A list of User or Team IDs allowed to bypass force push targeting matching branches.
-  """
-  bypassForcePushActorIds: [ID!]
-
-  """
-  A list of User or Team IDs allowed to bypass pull requests targeting matching branches.
-  """
-  bypassPullRequestActorIds: [ID!]
-
-  """
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
@@ -39394,46 +39219,6 @@ type UpdateLabelPayload @preview(toggledBy: "bane-preview") {
   The updated label.
   """
   label: Label
-}
-
-"""
-Autogenerated input type of UpdateOrganizationAllowPrivateRepositoryForkingSetting
-"""
-input UpdateOrganizationAllowPrivateRepositoryForkingSettingInput {
-  """
-  A unique identifier for the client performing the mutation.
-  """
-  clientMutationId: String
-
-  """
-  Enable forking of private repositories in the organization?
-  """
-  forkingEnabled: Boolean!
-
-  """
-  The ID of the organization on which to set the allow private repository forking setting.
-  """
-  organizationId: ID! @possibleTypes(concreteTypes: ["Organization"])
-}
-
-"""
-Autogenerated return type of UpdateOrganizationAllowPrivateRepositoryForkingSetting
-"""
-type UpdateOrganizationAllowPrivateRepositoryForkingSettingPayload {
-  """
-  A unique identifier for the client performing the mutation.
-  """
-  clientMutationId: String
-
-  """
-  A message confirming the result of updating the allow private repository forking setting.
-  """
-  message: String
-
-  """
-  The organization with the updated allow private repository forking setting.
-  """
-  organization: Organization
 }
 
 """

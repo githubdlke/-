@@ -8,17 +8,13 @@ name: Node.js Tests
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
   pull_request:
 
-permissions:
-  contents: read
-  # Needed for the 'trilom/file-changes-action' action
-  pull-requests: read
-
-# This allows a subsequently queued workflow run to interrupt previous runs
-concurrency:
-  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
-  cancel-in-progress: true
+env:
+  CI: true
 
 jobs:
   test:
@@ -45,7 +41,7 @@ jobs:
       # Each of these ifs needs to be repeated at each step to make sure the required check still runs
       # Even if if doesn't do anything
       - name: Check out repo
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
         with:
           # Enables cloning the Early Access repo later with the relevant PAT
           persist-credentials: 'false'
@@ -60,13 +56,10 @@ jobs:
 
       - name: Insight into changed files
         run: |
-
-          # Must to do this because the list of files can be HUGE. Especially
-          # in a repo-sync when there are lots of translation files involved.
-          echo "${{ steps.get_diff_files.outputs.files }}" > get_diff_files.txt
+          echo ${{ steps.get_diff_files.outputs.files }}
 
       - name: Setup node
-        uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+        uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
         with:
           node-version: 16.13.x
           cache: npm
@@ -74,23 +67,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Clone early access
-        if: ${{ github.repository == 'github/docs-internal' }}
-        run: script/early-access/clone-for-build.js
+      - if: ${{ github.repository == 'github/docs-internal' }}
+        name: Clone early access
+        run: npm run heroku-postbuild
         env:
           DOCUBOT_REPO_PAT: ${{ secrets.DOCUBOT_REPO_PAT }}
           GIT_BRANCH: ${{ github.head_ref || github.ref }}
 
-      - name: Cache nextjs build
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353
-        with:
-          path: .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('package*.json') }}
-
-      - name: Run build script
+      - if: ${{ github.repository != 'github/docs-internal' }}
+        name: Run build script
         run: npm run build
 
       - name: Run tests
         env:
-          DIFF_FILE: get_diff_files.txt
+          DIFF_FILES: ${{ steps.get_diff_files.outputs.files }}
         run: npm run test tests/${{ matrix.test-group }}/

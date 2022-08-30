@@ -30,9 +30,7 @@ export const SidebarProduct = () => {
   }
 
   const productTitle = currentProductTree.renderedShortTitle || currentProductTree.renderedFullTitle
-  // remove query string and hash
-  const routePath = `/${router.locale}${router.asPath.split('?')[0].split('#')[0]}`
-
+  const routePath = `/${router.locale}${router.asPath.split('?')[0]}` // remove query string
   const hasExactCategory = !!currentProductTree.childPages.find(({ href }) =>
     routePath.includes(href)
   )

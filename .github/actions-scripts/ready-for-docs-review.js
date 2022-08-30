@@ -3,7 +3,6 @@ import { graphql } from '@octokit/graphql'
 import {
   addItemToProject,
   isDocsTeamMember,
-  isGitHubOrgMember,
   findFieldID,
   findSingleSelectID,
   generateUpdateProjectNextItemFieldMutation,
@@ -86,8 +85,8 @@ async function run() {
     // - affected docs sets (not considering changes to data/assets)
     let numFiles = 0
     let numChanges = 0
-    const features = new Set([])
-    data.item.files.nodes.forEach((node) => {
+    let features = new Set([])
+    const files = data.item.files.nodes.forEach((node) => {
       numFiles += 1
       numChanges += node.additions
       numChanges += node.deletions
@@ -179,12 +178,9 @@ async function run() {
   let contributorType
   if (await isDocsTeamMember(process.env.AUTHOR_LOGIN)) {
     contributorType = docsMemberTypeID
-  } else if (await isGitHubOrgMember(process.env.AUTHOR_LOGIN)) {
-    contributorType = hubberTypeID
   } else if (process.env.REPO === 'github/docs') {
     contributorType = osContributorTypeID
   } else {
-    // use hubber as the fallback so that the PR doesn't get lost on the board
     contributorType = hubberTypeID
   }
 

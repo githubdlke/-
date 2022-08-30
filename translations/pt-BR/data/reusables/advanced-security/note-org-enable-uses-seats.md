@@ -1,4 +1,4 @@
-{% ifversion ghes > 3.0 or ghec %}
+{% ifversion fpt or ghes > 3.0 or ghec %}
 {% note %}
 **Observação:** Se você habilitar
 

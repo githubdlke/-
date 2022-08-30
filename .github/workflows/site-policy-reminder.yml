@@ -8,9 +8,6 @@ on:
   pull_request:
     types: [labeled]
 
-permissions:
-  contents: none
-
 jobs:
   run:
     if: >-

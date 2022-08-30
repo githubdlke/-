@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef, ReactNode, RefObject } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import cx from 'classnames'
-import { ActionList, DropdownMenu, Label, Overlay } from '@primer/components'
-import { ItemInput } from '@primer/components/lib/ActionList/List'
+import { ActionList, Label, Overlay } from '@primer/components'
 
 import { useTranslation } from 'components/hooks/useTranslation'
 import { sendEvent, EventType } from 'components/lib/events'
 import { useMainContext } from './context/MainContext'
-import { DEFAULT_VERSION, useVersion } from 'components/hooks/useVersion'
+import { useVersion } from 'components/hooks/useVersion'
 import { useQuery } from 'components/hooks/useQuery'
 import { Link } from 'components/Link'
 import { useLanguages } from './context/LanguagesContext'
@@ -209,38 +208,35 @@ export function Search({
     <div data-testid="search" aria-hidden="true">
       <div className="position-relative z-2">
         <form role="search" className="width-full d-flex" noValidate onSubmit={onFormSubmit}>
-          <label className="text-normal width-full">
-            <span className="visually-hidden">{t`placeholder`}</span>
-            <input
-              data-testid="site-search-input"
-              ref={inputRef}
-              className={cx(
-                styles.searchInput,
-                iconSize === 24 && 'form-control px-6 f4',
-                iconSize === 16 && 'form-control px-5 f4',
-                variant === 'compact' && 'py-2',
-                variant === 'expanded' && 'py-3',
-                isHeaderSearch && styles.searchInputHeader,
-                !isHeaderSearch && 'width-full',
-                isHeaderSearch && query && styles.searchInputExpanded,
-                isHeaderSearch && query && 'position-absolute top-0 right-0'
-              )}
-              style={{
-                background: `var(--color-canvas-default) url("/assets/images/octicons/search-${iconSize}.svg") no-repeat ${
-                  iconSize === 24 ? '12px' : '6px'
-                }`,
-              }}
-              type="search"
-              placeholder={t`placeholder`}
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              maxLength={512}
-              onChange={onSearch}
-              value={localQuery}
-            />
-          </label>
+          <input
+            data-testid="site-search-input"
+            ref={inputRef}
+            className={cx(
+              styles.searchInput,
+              iconSize === 24 && 'form-control px-6 f4',
+              iconSize === 16 && 'form-control px-5 f4',
+              variant === 'compact' && 'py-2',
+              variant === 'expanded' && 'py-3',
+              isHeaderSearch && styles.searchInputHeader,
+              !isHeaderSearch && 'width-full',
+              isHeaderSearch && query && styles.searchInputExpanded,
+              isHeaderSearch && query && 'position-absolute top-0 right-0'
+            )}
+            style={{
+              background: `var(--color-canvas-default) url("/assets/images/octicons/search-${iconSize}.svg") no-repeat ${
+                iconSize === 24 ? '12px' : '6px'
+              }`,
+            }}
+            type="search"
+            placeholder={t`placeholder`}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+            maxLength={512}
+            onChange={onSearch}
+            value={localQuery}
+          />
           <button className="d-none" type="submit" title="Submit the search query." hidden />
         </form>
       </div>
@@ -298,8 +294,6 @@ function ShowSearchResults({
   const { currentVersion } = useVersion()
   const { allVersions } = useMainContext()
   const searchVersion = allVersions[currentVersion].versionTitle
-  const [selectedVersion, setSelectedVersion] = useState<ItemInput | undefined>()
-
   const latestVersions = new Set(
     Object.keys(allVersions)
       .map((version) => allVersions[version].latestVersion)
@@ -313,38 +307,12 @@ function ShowSearchResults({
     }
   })
 
-  const searchVersions: ItemInput[] = versions.map(({ title, version }) => {
-    return {
-      text: title,
-      key: version,
-    }
-  })
-
   const redirectParams: {
     query: string
     debug?: string
   } = { query }
-
   if (debug) redirectParams.debug = JSON.stringify(debug)
-
   const redirectQuery = `?${new URLSearchParams(redirectParams).toString()}`
-
-  useEffect(() => {
-    if (selectedVersion) {
-      const params = new URLSearchParams(redirectParams)
-      let asPath = `/${router.locale}`
-
-      if (params.toString()) {
-        asPath += `?${params.toString()}`
-      }
-
-      if (selectedVersion.key === DEFAULT_VERSION) {
-        router.push(`/?${params.toString()}`, asPath)
-      } else {
-        router.push(`/${router.locale}/${selectedVersion.key}${redirectQuery}`)
-      }
-    }
-  }, [selectedVersion])
 
   if (results) {
     if (results.length === 0) {
@@ -373,23 +341,22 @@ function ShowSearchResults({
           isHeaderSearch && 'overflow-auto'
         )}
       >
-        <div className="mt-4 pb-4 width-full border-bottom">
-          <p className={cx(styles.searchWording, 'f6 ml-4 d-inline-block')}>
-            You're searching the <strong>{searchVersion}</strong> version.
+        <div className="my-4">
+          <p className="mx-4">
+            You're searching the <span className="color-fg-attention">{searchVersion}</span>{' '}
+            version. Didn't find what you're looking for? Click a different version to try again.
           </p>
-          <div className="float-right mr-4">
-            <p className={cx(styles.selectWording, 'f6 d-inline-block')}>Select version:</p>
-            <DropdownMenu
-              placeholder={searchVersion}
-              items={searchVersions}
-              selectedItem={selectedVersion}
-              onChange={setSelectedVersion}
-            />
-          </div>
+          {versions.map(({ title, version }) => {
+            return (
+              <button key={version} className="btn mr-2 mt-4 ml-4" type="button">
+                <a href={`/${router.locale}/${version}${redirectQuery}`}>{title}</a>
+              </button>
+            )
+          })}
         </div>
         {/* We might have results AND isLoading. For example, the user typed
         a first word, and is now typing more. */}
-        <p className="d-block ml-4 mt-4">
+        <p className="d-block mt-4">
           {isLoading ? <span>{t('loading')}...</span> : <span>&nbsp;</span>}
         </p>
 
@@ -401,10 +368,7 @@ function ShowSearchResults({
               renderItem: () => (
                 <ActionList.Item as="div">
                   <Link href={url} className="no-underline color-fg-default">
-                    <li
-                      data-testid="search-result"
-                      className={cx('list-style-none', styles.resultsContainer)}
-                    >
+                    <li data-testid="search-result" className={cx('list-style-none')}>
                       <div className={cx('py-2 px-3')}>
                         {/* Breadcrumbs in search records don't include the page title. These fields may contain <mark> elements that we need to render */}
                         <Label variant="small" sx={{ bg: 'accent.emphasis' }}>
@@ -461,6 +425,9 @@ function ShowSearchResults({
       <div>
         {!isHeaderSearch && !isMobileSearch ? (
           <>
+            {/* Only if you're going to use an <Overlay> do you need
+          to specify a portal div tag. */}
+            <div id="__primerPortalRoot__" />
             <Overlay
               initialFocusRef={anchorRef}
               returnFocusRef={anchorRef}
@@ -469,26 +436,16 @@ function ShowSearchResults({
               onClickOutside={() => closeSearch()}
               aria-labelledby="title"
               sx={
-                isHeaderSearch
-                  ? {
-                      background: 'none',
-                      boxShadow: 'none',
-                      position: 'static',
-                      overflowY: 'auto',
-                      maxHeight: '80vh',
-                      maxWidth: '96%',
-                      margin: '1.5em 2em 0 0.5em',
-                      scrollbarWidth: 'none',
-                    }
-                  : window.innerWidth < 1012
-                  ? {
-                      marginTop: '28rem',
-                      marginLeft: '5rem',
-                    }
-                  : {
-                      marginTop: '15rem',
-                      marginLeft: '5rem',
-                    }
+                isHeaderSearch && {
+                  background: 'none',
+                  boxShadow: 'none',
+                  position: 'static',
+                  overflowY: 'auto',
+                  maxHeight: '80vh',
+                  maxWidth: '96%',
+                  margin: '1.5em 2em 0 0.5em',
+                  scrollbarWidth: 'none',
+                }
               }
             >
               {ActionListResults}

@@ -20,11 +20,8 @@ export default function recordRedirects(req, res, next) {
       redirect_from: req.originalUrl,
       redirect_to: res.get('location'),
     }
-    try {
-      await req.hydro.publish(schemaName, redirectEvent)
-    } catch (err) {
-      console.error('Failed to record redirect to Hydro', err)
-    }
+    const hydroRes = await req.hydro.publish(schemaName, redirectEvent)
+    if (!hydroRes.ok) console.log('Failed to record redirect to Hydro')
   })
 
   return next()

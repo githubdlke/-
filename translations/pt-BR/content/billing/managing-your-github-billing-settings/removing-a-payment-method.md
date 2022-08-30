@@ -1,12 +1,12 @@
 ---
-title: Removing a payment method
-intro: 'If you aren''t using your payment method for any paid subscriptions on {% data variables.product.prodname_dotcom %}, you can remove the payment method so it''s no longer stored in your account.'
+title: Remover uma forma de pagamento
+intro: 'Se não estiver usando a forma de pagamento para as assinaturas pagas no {% data variables.product.prodname_dotcom %}, você poderá removê-la para deixar de armazená-la na conta.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/removing-a-payment-method
-  - /articles/removing-a-credit-card-associated-with-your-user-account
-  - /articles/removing-a-payment-method-associated-with-your-user-account
-  - /articles/removing-a-credit-card-associated-with-your-organization
-  - /articles/removing-a-payment-method-associated-with-your-organization
+  - /articles/removing-a-credit-card-associated-with-your-user-account/
+  - /articles/removing-a-payment-method-associated-with-your-user-account/
+  - /articles/removing-a-credit-card-associated-with-your-organization/
+  - /articles/removing-a-payment-method-associated-with-your-organization/
   - /articles/removing-a-payment-method
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-github-billing-settings/removing-a-payment-method
 versions:
@@ -17,17 +17,18 @@ topics:
   - Organizations
   - User account
 ---
-If you're paying for your {% data variables.product.product_name %} subscription with a coupon, and you aren't using your payment method for any [other paid features or products](/articles/about-billing-on-github) on {% data variables.product.product_name %}, you can remove your credit card or PayPal information.
+
+Se estiver pagando a assinatura do {% data variables.product.product_name %} com um cupom e não estiver usando a forma de pagamento para qualquer outro [recurso ou produto pago](/articles/about-billing-on-github) no {% data variables.product.product_name %}, você poderá remover as informações do cartão de crédito ou do PayPal.
 
 {% data reusables.dotcom_billing.coupon-expires %}
 
 {% tip %}
 
-**Tip:** If you [downgrade your account to a free product](/articles/downgrading-your-github-subscription) and you don't have subscriptions for any other paid features or products, we'll automatically remove your payment information.
+**Dica:** se você [fizer downgrade da conta para um produto grátis](/articles/downgrading-your-github-subscription) e não tiver assinaturas de outros recursos ou produtos pagos, removeremos automaticamente suas informações de pagamento.
 
 {% endtip %}
 
-## Removing your personal account's payment method
+## Remover a forma de pagamento da conta pessoal
 
 {% data reusables.user_settings.access_settings %}
 {% data reusables.user_settings.billing_plans %}
@@ -35,7 +36,7 @@ If you're paying for your {% data variables.product.product_name %} subscription
 {% data reusables.dotcom_billing.remove-payment-method %}
 {% data reusables.dotcom_billing.remove_payment_info %}
 
-## Removing your organization's payment method
+## Remover a forma de pagamento da organização
 
 {% data reusables.dotcom_billing.org-billing-perms %}
 

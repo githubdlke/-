@@ -1,28 +1,19 @@
+import Parser from 'rss-parser'
+import { getChangelogItems } from '../../lib/changelog.js'
 import fs from 'fs/promises'
 import path from 'path'
-
-import nock from 'nock'
-
-import { getChangelogItems } from '../../lib/changelog.js'
+const parser = new Parser({ timeout: 5000 })
+const rssFeedContent = await fs.readFile(
+  path.join(process.cwd(), 'tests/fixtures/rss-feed.xml'),
+  'utf8'
+)
 
 describe('getChangelogItems module', () => {
   let changelog
-
   beforeAll(async () => {
-    const rssFeedContent = await fs.readFile(
-      path.join(process.cwd(), 'tests/fixtures/rss-feed.xml'),
-      'utf8'
-    )
-
-    nock('https://github.blog').get('/changelog/label/packages/feed').reply(200, rssFeedContent)
-
-    changelog = await getChangelogItems(
-      'GitHub Actions:',
-      'https://github.blog/changelog/label/packages'
-    )
+    const feed = await parser.parseString(rssFeedContent)
+    changelog = await getChangelogItems('GitHub Actions:', feed)
   })
-
-  afterAll(() => nock.cleanAll())
 
   it('changelog contains 3 items', async () => {
     expect(changelog.length).toEqual(3)

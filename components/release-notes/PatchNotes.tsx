@@ -93,7 +93,11 @@ export function PatchNotes({ patch, withReleaseNoteLabel }: Props) {
                     </h4>
                     {item.notes.map((note) => {
                       return (
-                        <li key={note} className="f4" dangerouslySetInnerHTML={{ __html: note }} />
+                        <li
+                          key={note}
+                          className={cx(!withReleaseNoteLabel && 'list-style-none', 'f4')}
+                          dangerouslySetInnerHTML={{ __html: note }}
+                        />
                       )
                     })}
                   </Fragment>
